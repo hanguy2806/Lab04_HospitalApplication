@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void startClick(){
-        Intent intent=new Intent(this,LogInActivity.class);
+        Intent intent=new Intent(this,SelectionActivity.class);
         startActivity(intent);
     }
 }

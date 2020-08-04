@@ -15,7 +15,7 @@ import java.util.List;
 
 public class NurseRepository {
     private final NurseDao nurseDao;
-
+    private MutableLiveData<Integer> insertResult = new MutableLiveData<>();
     private LiveData<List<Nurse>> nurseList;
 
     public NurseRepository(Context context) {
@@ -27,20 +27,27 @@ public class NurseRepository {
     public LiveData<List<Nurse>> getAllNurses() {
         return nurseList;
     }
-    public void insert(Nurse nurse){
-        new InsertNurseAsyncTask(nurseDao).execute(nurse);
+
+    public void insert(Nurse nurse) {
+        insertAsync(nurse);
     }
 
-    private static class InsertNurseAsyncTask extends AsyncTask<Nurse,Void,Void>{
-        private NurseDao nurseDao;
-        private InsertNurseAsyncTask(NurseDao nurseDao){
-            this.nurseDao=nurseDao;
-        }
-        @Override
-        protected Void doInBackground(Nurse... nurses) {
-            nurseDao.insert(nurses[0]);
-            return null;
-        }
+    // returns insert results as LiveData object
+    public LiveData<Integer> getInsertResult() {
+        return insertResult;
     }
 
+    private void insertAsync(final Nurse person) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    nurseDao.insert(person);
+                    insertResult.postValue(1);
+                } catch (Exception e) {
+                    insertResult.postValue(0);
+                }
+            }
+        }).start();
+    }
 }

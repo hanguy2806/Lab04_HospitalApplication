@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Lab04_HospitalApplication</string>
+    <string name="patient_act">Patient Activity</string>
+    <string name="nurse_act">Nurse Activity</string>
+    <string-array name="activities">
+        <item>@string/patient_act</item>
+        <item>@string/nurse_act</item>
+    </string-array>
 </resources>
