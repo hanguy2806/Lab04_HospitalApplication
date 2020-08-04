@@ -28,8 +28,6 @@ public class PatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
-        //init view model
-        patientViewModel= ViewModelProviders.of(this).get(PatientViewModel.class);
 
         RecyclerView patientRV=findViewById(R.id.patient_recycler_view);
         patientRV.setLayoutManager(new LinearLayoutManager(this));
@@ -37,12 +35,20 @@ public class PatientActivity extends AppCompatActivity {
 
         final PatientAdapter adapter=new PatientAdapter();
         patientRV.setAdapter(adapter);
-        //init view model
+
         patientViewModel= ViewModelProviders.of(this).get(PatientViewModel.class);
+
+
+
+
         patientViewModel.getAllPatients().observe(this, new Observer<List<Patient>>() {
             @Override
-            public void onChanged(@NonNull List<Patient> patients) {
-                Toast.makeText(PatientActivity.this, "PATIENT VIEW MODEL CHANGED", Toast.LENGTH_SHORT).show();
+            public void onChanged(List<Patient> patients) {
+                String output = "Welcome ";
+                for (Patient n : patients) {
+                    output += n.getPatientId() + "\n";
+                }
+                Toast.makeText(PatientActivity.this, output, Toast.LENGTH_SHORT).show();
                 adapter.setPatients(patients);
             }
         });
@@ -65,17 +71,18 @@ public class PatientActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("CHECK PATIENT ACT", "HERE WE GO");
+        Toast.makeText(this, "on REsult", Toast.LENGTH_SHORT).show();
         if (requestCode == ADD_PATIENT_REQUEST && resultCode == RESULT_OK) {
             String firstName = data.getStringExtra(AddPatientActivity.EXTRA_FIRST_NAME);
             String lastName = data.getStringExtra(AddPatientActivity.EXTRA_LAST_NAME);
             String department = data.getStringExtra(AddPatientActivity.EXTRA_DEPARTMENT);
             int room = data.getIntExtra(AddPatientActivity.EXTRA_ROOM, 1);
             Patient p = new Patient(firstName, lastName, department, room);
+            //try here
+            Toast.makeText(this, p.getLastName(), Toast.LENGTH_SHORT).show();
             patientViewModel.insert(p);
             Toast.makeText(this, "Patient's info saved", Toast.LENGTH_SHORT).show();
         } else {

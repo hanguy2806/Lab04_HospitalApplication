@@ -2,6 +2,7 @@ package com.example.lab04_hospitalapplication.Repository;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,12 +14,12 @@ import com.example.lab04_hospitalapplication.Models.Patient;
 import java.util.List;
 
 public class PatientRepository {
-    private final PatientDao patientDao;
-    private MutableLiveData<Integer> insertResult = new MutableLiveData<>();
+    private  final PatientDao patientDao;
+
     private LiveData<List<Patient>> patientList;
 
-    public PatientRepository(Context context) {
-        AppDatabase db = AppDatabase.getInstance(context);
+    public PatientRepository(Application application) {
+        AppDatabase db = AppDatabase.getInstance(application);
         patientDao = db.patientDao();
         patientList = patientDao.getAllPatients();
     }
@@ -27,26 +28,18 @@ public class PatientRepository {
         return patientList;
     }
 
-    public void insert(Patient patient) {
-        insertAsync(patient);
-    }
+    public void insert(Patient patient) { new InsertPatientAsyncTask(patientDao).execute(patient);}
 
-    // returns insert results as LiveData object
-    public LiveData<Integer> getInsertResult() {
-        return insertResult;
-    }
-
-    private void insertAsync(final Patient person) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    patientDao.insert(person);
-                    insertResult.postValue(1);
-                } catch (Exception e) {
-                    insertResult.postValue(0);
-                }
-            }
-        }).start();
+    public class InsertPatientAsyncTask  extends AsyncTask<Patient,Void,Void> {
+        private PatientDao patientDao;
+        public InsertPatientAsyncTask(PatientDao patientDao) {
+           this.patientDao=patientDao;
+        }
+        @Override
+        protected Void doInBackground(Patient... patients) {
+            patientDao.insert(patients[0]);
+            return null;
+        }
     }
 }
+

@@ -26,7 +26,6 @@ import java.util.List;
 public class LogInActivity extends AppCompatActivity {
     private NurseViewModel nurseViewModel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -58,7 +58,7 @@
             android:text="Department:" />
 
         <EditText
-            android:id="@+id/edit_text__patient_department"
+            android:id="@+id/edit_text_patient_department"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2" />

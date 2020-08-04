@@ -21,19 +21,23 @@
             android:id="@+id/text_view_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
             android:layout_alignParentLeft="true"
             android:ellipsize="end"/>
         <TextView
-            android:id="@+id/text_view_department"
+            android:id="@+id/text_view_lastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_name"
+            android:text="Last Name"/>
+        <TextView
+            android:id="@+id/text_view_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_lastname"
             android:text="Department"/>
-
-
     </RelativeLayout>
 
 

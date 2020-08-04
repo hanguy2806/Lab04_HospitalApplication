@@ -51,6 +51,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientH
            textViewFirstName=itemView.findViewById(R.id.text_view_name);
            textViewdepartment=itemView.findViewById(R.id.text_view_department);
            textViewroom=itemView.findViewById(R.id.text_view_room);
+           textViewLastName=itemView.findViewById(R.id.text_view_lastname);
         }
     }
 }

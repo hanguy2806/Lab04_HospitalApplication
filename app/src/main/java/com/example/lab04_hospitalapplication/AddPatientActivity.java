@@ -56,7 +56,7 @@ public class AddPatientActivity extends AppCompatActivity {
     private void init() {
         editTextFirstName = findViewById(R.id.edit_text_patient_fname);
         editTextLastName = findViewById(R.id.edit_text_patient_lname);
-        editTextDepartment = findViewById(R.id.edit_text__patient_department);
+        editTextDepartment = findViewById(R.id.edit_text_patient_department);
         editTextRoom = findViewById(R.id.edit_text_patient_room);
     }
 
