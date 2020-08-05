@@ -43,7 +43,7 @@ public class AddPatientActivity extends AppCompatActivity {
             editTextFirstName.setText(intent.getStringExtra(EXTRA_FNAME));
             editTextLastName.setText(intent.getStringExtra(EXTRA_LNAME));
             editTextDepartment.setText(intent.getStringExtra(EXTRA_DEPARTMENT));
-            editTextRoom.setText(intent.getIntExtra(EXTRA_ROOM, 1));
+            editTextRoom.setText(String.valueOf(intent.getIntExtra(EXTRA_ROOM,1)));
         } else {
             setTitle("Add Patient Information");
         }
