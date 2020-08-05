@@ -29,8 +29,9 @@ public class PatientRepository {
     }
 
     public void insert(Patient patient) { new InsertPatientAsyncTask(patientDao).execute(patient);}
+    public void update(Patient patient){ new UpdatePatientAsyncTask(patientDao).execute(patient);}
 
-    public class InsertPatientAsyncTask  extends AsyncTask<Patient,Void,Void> {
+    private class InsertPatientAsyncTask  extends AsyncTask<Patient,Void,Void> {
         private PatientDao patientDao;
         public InsertPatientAsyncTask(PatientDao patientDao) {
            this.patientDao=patientDao;
@@ -38,6 +39,18 @@ public class PatientRepository {
         @Override
         protected Void doInBackground(Patient... patients) {
             patientDao.insert(patients[0]);
+            return null;
+        }
+    }
+
+    private class UpdatePatientAsyncTask  extends AsyncTask<Patient,Void,Void> {
+        private PatientDao patientDao;
+        public UpdatePatientAsyncTask(PatientDao patientDao) {
+            this.patientDao=patientDao;
+        }
+        @Override
+        protected Void doInBackground(Patient... patients) {
+            patientDao.update(patients[0]);
             return null;
         }
     }

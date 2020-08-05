@@ -46,7 +46,7 @@ public class Patient {
         return patientId;
     }
 
-    public String getNurseId() {
+   public String getNurseId() {
         return nurseId;
     }
 
