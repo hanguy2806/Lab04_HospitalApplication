@@ -12,7 +12,7 @@ public class AddTestActivity extends AppCompatActivity {
     public static final String EXTRA_TEST_ID = "com.example.lab04_hospitalapplication.TEST_ID";
     public static final String EXTRA_BPL = "com.example.lab04_hospitalapplication.TEST_BPL";
     public static final String EXTRA_BPH = "com.example.lab04_hospitalapplication.TEST_BPH";
-    public static final String EXTRA_TEMPERATURE="com.example.lab04_hospitalapplication.TEST_TEMPERATURE";
+    public static final String EXTRA_TEMPERATURE = "com.example.lab04_hospitalapplication.TEST_TEMPERATURE";
 
     private EditText editTextBPL;
     private EditText editTextBPH;
@@ -25,7 +25,7 @@ public class AddTestActivity extends AppCompatActivity {
 
         init();
 
-        Button saveBtn=findViewById(R.id.button_save_test);
+        Button saveBtn = findViewById(R.id.button_save_test);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,23 +33,24 @@ public class AddTestActivity extends AppCompatActivity {
             }
         });
     }
-    private void init(){
-        editTextBPH=findViewById(R.id.edit_text_test_BPH);
-        editTextBPL=findViewById(R.id.edit_text_test_BHL);
-        editTextTemperature=findViewById(R.id.edit_text_test_temperature);
+
+    private void init() {
+        editTextBPH = findViewById(R.id.edit_text_test_BPH);
+        editTextBPL = findViewById(R.id.edit_text_test_BHL);
+        editTextTemperature = findViewById(R.id.edit_text_test_temperature);
 
     }
 
     private void saveClick() {
-        String bph=editTextBPH.getText().toString();
-String bpl=editTextBPL.getText().toString();
-String temperature=editTextTemperature.getText().toString();
+        String bph = editTextBPH.getText().toString();
+        String bpl = editTextBPL.getText().toString();
+        String temperature = editTextTemperature.getText().toString();
 
         Intent data = new Intent();
-        data.putExtra(EXTRA_BPH,bph);
-        data.putExtra(EXTRA_BPL,bpl);
-        data.putExtra(EXTRA_TEMPERATURE,temperature);
-        setResult(RESULT_OK,data);
+        data.putExtra(EXTRA_BPH, bph);
+        data.putExtra(EXTRA_BPL, bpl);
+        data.putExtra(EXTRA_TEMPERATURE, temperature);
+        setResult(RESULT_OK, data);
         finish();
     }
 }

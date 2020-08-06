@@ -30,14 +30,14 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        RecyclerView testRV = findViewById(R.id.patient_recycler_view);
+        RecyclerView testRV = findViewById(R.id.test_recycler_view);
         testRV.setLayoutManager(new LinearLayoutManager(this));
         testRV.setHasFixedSize(true);
 
         final TestAdapter adapter = new TestAdapter();
         testRV.setAdapter(adapter);
 
-        testViewModel = ViewModelProviders.of(this).get(TestViewModel.class);
+      testViewModel = ViewModelProviders.of(this).get(TestViewModel.class);
         testViewModel.getAllTests().observe(this, new Observer<List<Test>>() {
             @Override
             public void onChanged(List<Test> tests) {
@@ -45,12 +45,12 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-//        testViewModel.getAllTests().observe(this, new Observer<List<Test>>() {
-//            @Override
-//            public void onChanged(List<Test> tests) {
-//                adapter.setTests(tests);
-//            }
-//        });
+        testViewModel.getAllTests().observe(this, new Observer<List<Test>>() {
+            @Override
+            public void onChanged(List<Test> tests) {
+                adapter.setTests(tests);
+            }
+        });
     }
 
 
@@ -61,9 +61,8 @@ public class TestActivity extends AppCompatActivity {
             String bph = data.getStringExtra(AddTestActivity.EXTRA_BPH);
             String bpl = data.getStringExtra(AddTestActivity.EXTRA_BPL);
             String temperature = data.getStringExtra(AddTestActivity.EXTRA_TEMPERATURE);
-
             Test test=new Test(Integer.valueOf(bpl),Integer.valueOf(bph),Integer.valueOf(temperature));
-
+            testViewModel.insert(test);
             Toast.makeText(this, "Patient info saved", Toast.LENGTH_SHORT).show();
         }
     }

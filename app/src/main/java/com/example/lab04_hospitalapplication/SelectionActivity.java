@@ -22,12 +22,6 @@ public class SelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selection);
 
         ListView listview=(ListView) findViewById(R.id.selection_list_view);
-//        ArrayList<String> activities=new ArrayList<>();
-//        activities.add("Patient Activity");
-//        activities.add("Nurse Activity");
-//
-//        ArrayAdapter adapter= new ArrayAdapter(this,R.layout.list_view_layout,activities);
-//        listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -36,8 +30,8 @@ public class SelectionActivity extends AppCompatActivity {
                     case "Patient Activity":
                         startActivity(new Intent(view.getContext(), PatientActivity.class));
                         break;
-                    case "Nurse Activity":
-                        startActivity(new Intent(view.getContext(), NurseActivity.class));
+                    case "Test Activity":
+                        startActivity(new Intent(view.getContext(), AddTestActivity.class));
                         break;
                 }
             }
