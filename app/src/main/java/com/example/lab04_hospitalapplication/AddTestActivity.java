@@ -18,21 +18,27 @@ public class AddTestActivity extends AppCompatActivity {
     public static final String EXTRA_BPL = "com.example.lab04_hospitalapplication.TEST_BPL";
     public static final String EXTRA_BPH = "com.example.lab04_hospitalapplication.TEST_BPH";
     public static final String EXTRA_TEMPERATURE = "com.example.lab04_hospitalapplication.TEST_TEMPERATURE";
+    public static final String EXTRA_PATIENT_ID = "com.example.lab04_hospitalapplication.PATIENT_ID";
+    public static final String EXTRA_NURSE_ID = "com.example.lab04_hospitalapplication.NURSE_ID";
 
     private EditText editTextBPL;
     private EditText editTextBPH;
     private EditText editTextTemperature;
 
-    private TestViewModel testViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_test);
 
-        testViewModel= ViewModelProviders.of(this).get(TestViewModel.class);
-
         init();
+        //for view or update Test
+        Intent intent=getIntent();
+        if(intent.hasExtra(EXTRA_TEST_ID)){
+            editTextTemperature.setText(intent.getStringExtra(EXTRA_TEMPERATURE));
+            editTextBPL.setText(intent.getStringExtra(EXTRA_BPL));
+            editTextBPH.setText(intent.getStringExtra(EXTRA_BPH));
+        }
 
         Button saveBtn = findViewById(R.id.button_save_test);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +53,6 @@ public class AddTestActivity extends AppCompatActivity {
         editTextBPH = findViewById(R.id.edit_text_test_BPH);
         editTextBPL = findViewById(R.id.edit_text_test_BHL);
         editTextTemperature = findViewById(R.id.edit_text_test_temperature);
-
     }
 
     private void saveClick() {
@@ -55,16 +60,18 @@ public class AddTestActivity extends AppCompatActivity {
         String bpl = editTextBPL.getText().toString();
         String temperature = editTextTemperature.getText().toString();
 
-
-//        Test test=new Test(Integer.valueOf(bpl),Integer.valueOf(bph),Integer.valueOf(temperature));
-//       test.setPatientId(patient_id);
-//        test.setNurseId(nurse_id);
-//        testViewModel.insert(test);
-
         Intent data = new Intent();
         data.putExtra(EXTRA_BPH, bph);
         data.putExtra(EXTRA_BPL, bpl);
         data.putExtra(EXTRA_TEMPERATURE, temperature);
+        data.putExtra(EXTRA_PATIENT_ID,getIntent().getStringExtra(EXTRA_PATIENT_ID));
+        data.putExtra(EXTRA_NURSE_ID, getIntent().getStringExtra(EXTRA_NURSE_ID));
+        //check test id is created or not
+        int id=getIntent().getIntExtra(EXTRA_TEST_ID,-1);
+        if(id != -1){
+            data.putExtra(EXTRA_TEST_ID,id);
+        }
+        //if not,then move on
         setResult(RESULT_OK, data);
         finish();
     }

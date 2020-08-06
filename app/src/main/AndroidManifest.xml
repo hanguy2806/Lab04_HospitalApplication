@@ -12,7 +12,6 @@
         <activity android:name=".TestActivity"></activity>
         <activity android:name=".AddTestActivity" />
         <activity android:name=".AddPatientActivity" />
-        <activity android:name=".NurseActivity" />
         <activity android:name=".SelectionActivity" />
         <activity android:name=".PatientActivity" />
         <activity android:name=".LogInActivity" />

@@ -15,6 +15,7 @@ import java.util.List;
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestHolder> {
     private List<Test> tests = new ArrayList<>();
+    private  OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -51,6 +52,20 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestHolder> {
             textViewBPH = itemView.findViewById(R.id.text_view_test_bph);
             textViewBPL = itemView.findViewById(R.id.text_view_test_bpl);
             textViewTemperature = itemView.findViewById(R.id.text_view_test_temperature);
+            //event listener for each test in recycker view
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position=getAdapterPosition();
+                    if(listener !=null && position != RecyclerView.NO_POSITION){
+                        listener.onItemClick(tests.get(position));
+                    }
+                }
+            });
         }
     }
+    public interface OnItemClickListener{
+        void onItemClick(Test test);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){ this.listener=listener;}
 }
