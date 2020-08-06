@@ -1,11 +1,9 @@
 package com.example.lab04_hospitalapplication.Repository;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.lab04_hospitalapplication.Dao.PatientDao;
 import com.example.lab04_hospitalapplication.Database.AppDatabase;
@@ -15,7 +13,6 @@ import java.util.List;
 
 public class PatientRepository {
     private  final PatientDao patientDao;
-
     private LiveData<List<Patient>> patientList;
 
     public PatientRepository(Application application) {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature: " />
+        <TextView
+            android:id="@+id/text_view_test_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature"
+            android:maxLines="1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="100dp"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/text_view_test_bpl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_test_temperature"
+            android:layout_marginLeft="100dp"
+            android:text="BPL"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_test_temperature"
+            android:text="BPL: " />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_test_bpl"
+            android:text="BPH: " />
+
+        <TextView
+            android:id="@+id/text_view_test_bph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_test_bpl"
+            android:layout_marginLeft="100dp"
+            android:text="BPH"/>
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

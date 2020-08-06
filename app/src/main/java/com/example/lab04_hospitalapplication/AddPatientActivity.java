@@ -1,9 +1,6 @@
 package com.example.lab04_hospitalapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,13 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Toast;
-
-import com.example.lab04_hospitalapplication.Models.Patient;
-import com.example.lab04_hospitalapplication.ViewModel.PatientViewModel;
-
-import java.util.List;
 
 public class AddPatientActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.example.lab04_hospitalapplication.ID";
