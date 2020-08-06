@@ -20,7 +20,7 @@ public class Test {
     @PrimaryKey(autoGenerate = true)
     private int testId;
     private int patientId;
-    private int nurseId;
+    private String nurseId;
     private int BPL;
     private int BPH;
     private int temperatre;
@@ -29,7 +29,7 @@ public class Test {
         return patientId;
     }
 
-    public int getNurseId() {
+    public String getNurseId() {
         return nurseId;
     }
 
@@ -51,7 +51,7 @@ public class Test {
         this.patientId = patientId;
     }
 
-    public void setNurseId(int nurseId) {
+    public void setNurseId(String nurseId) {
         this.nurseId = nurseId;
     }
 

@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.lab04_hospitalapplication.Models.Patient;
 import com.example.lab04_hospitalapplication.Models.Test;
-import com.example.lab04_hospitalapplication.ViewModel.PatientViewModel;
 import com.example.lab04_hospitalapplication.ViewModel.TestViewModel;
 
 import java.util.List;
@@ -57,11 +56,14 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
         if (requestCode == ADD_TEST_REQUEST && resultCode == RESULT_OK) {
             String bph = data.getStringExtra(AddTestActivity.EXTRA_BPH);
             String bpl = data.getStringExtra(AddTestActivity.EXTRA_BPL);
             String temperature = data.getStringExtra(AddTestActivity.EXTRA_TEMPERATURE);
             Test test=new Test(Integer.valueOf(bpl),Integer.valueOf(bph),Integer.valueOf(temperature));
+
             testViewModel.insert(test);
             Toast.makeText(this, "Patient info saved", Toast.LENGTH_SHORT).show();
         }

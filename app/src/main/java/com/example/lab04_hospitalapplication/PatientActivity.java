@@ -42,8 +42,7 @@ public class PatientActivity extends AppCompatActivity {
         patientRV.setAdapter(adapter);
 
         patientViewModel = ViewModelProviders.of(this).get(PatientViewModel.class);
-
-        patientViewModel.getAllPatients().observe(this, new Observer<List<Patient>>() {
+       patientViewModel.getAllPatients().observe(this, new Observer<List<Patient>>() {
             @Override
             public void onChanged(List<Patient> patients) {
                 adapter.setPatients(patients);
@@ -61,6 +60,7 @@ public class PatientActivity extends AppCompatActivity {
                 data.putExtra(AddPatientActivity.EXTRA_ROOM, patient.getRoom());
                 data.putExtra(AddPatientActivity.EXTRA_NURSEID, patient.getNurseId());
                 startActivityForResult(data, EDIT_PATIENT_REQUEST);
+
             }
         });
     }
@@ -79,6 +79,9 @@ public class PatientActivity extends AppCompatActivity {
             p.setNurseId(nurseId);
             patientViewModel.insert(p);
             Toast.makeText(this, "Patient info saved", Toast.LENGTH_SHORT).show();
+
+
+
         } else if (requestCode == EDIT_PATIENT_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddPatientActivity.EXTRA_ID, -1);
             if (id == -1) {
@@ -91,7 +94,7 @@ public class PatientActivity extends AppCompatActivity {
             int room = data.getIntExtra(AddPatientActivity.EXTRA_ROOM, 1);
             String nurseId=data.getStringExtra(AddPatientActivity.EXTRA_NURSEID);
             Patient p = new Patient(firstName, lastName, department, room);
-            // p.setNurseId(nurseId);
+             p.setNurseId(nurseId);
             p.setPatientId(id);
             patientViewModel.update(p);
             Toast.makeText(this, "Patient info updated", Toast.LENGTH_SHORT).show();

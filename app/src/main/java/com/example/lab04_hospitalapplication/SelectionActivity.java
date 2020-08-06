@@ -31,7 +31,7 @@ public class SelectionActivity extends AppCompatActivity {
                         startActivity(new Intent(view.getContext(), PatientActivity.class));
                         break;
                     case "Test Activity":
-                        startActivity(new Intent(view.getContext(), AddTestActivity.class));
+                        startActivity(new Intent(view.getContext(), TestActivity.class));
                         break;
                 }
             }
