@@ -8,11 +8,24 @@
     tools:context=".LogInActivity">
 
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOG IN"
+        style="@style/screen_title"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter any name and password to log in!"
+        />
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <TextView
+            style="@style/label"
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Password" />
+            android:text="Password"
+            style="@style/label"/>
 
         <EditText
             android:id="@+id/text_password"
@@ -48,7 +62,9 @@
 
     </TableRow>
 
+
     <Button
+        android:padding="15dp"
         android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

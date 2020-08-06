@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogInActivity extends AppCompatActivity {
-    ArrayList<Nurse> nurseArrayList=new ArrayList<>();
+    ArrayList<Nurse> nurseArrayList = new ArrayList<>();
     NurseViewModel nurseViewModel;
 
     @Override
@@ -33,17 +33,17 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
 
-        nurseViewModel=ViewModelProviders.of(this).get(NurseViewModel.class);
+        nurseViewModel = ViewModelProviders.of(this).get(NurseViewModel.class);
 
-     loadData();
+        loadData();
 
         Button loginBtn = findViewById(R.id.button_login);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNurse();
-                login();
-                startActivity(new Intent(LogInActivity.this, SelectionActivity.class));
+                //           login();
+                //          startActivity(new Intent(LogInActivity.this, SelectionActivity.class));
             }
         });
     }
@@ -53,7 +53,6 @@ public class LogInActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(nurseArrayList);
-
         editor.putString("nurse list", json);
         editor.apply();
     }
@@ -65,29 +64,37 @@ public class LogInActivity extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<Nurse>>() {
         }.getType();
         nurseArrayList = gson.fromJson(json, type);
-        if(nurseArrayList==null){
-            nurseArrayList=new ArrayList<>();
+        if (nurseArrayList == null) {
+            nurseArrayList = new ArrayList<>();
         }
         Toast.makeText(this, "Load data test", Toast.LENGTH_SHORT).show();
     }
 
     private void addNurse() {
-        SharedPreferences sharedPreferences=getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         EditText nurse_name = findViewById(R.id.text_nurse_name);
         EditText password = findViewById(R.id.text_password);
 
-        editor.putString("nurse_id",nurse_name.getText().toString());
+        editor.putString("nurse_id", nurse_name.getText().toString());
         editor.commit();
-
+        if (nurse_name.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter id and password!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.getText().toString().length() < 8) {
+            Toast.makeText(this, "Password must be more than 8 characters!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Nurse nurse = new Nurse(nurse_name.getText().toString(), password.getText().toString());
         nurseArrayList.add(nurse);
-       nurseViewModel.insert(nurse);
-        String output="";
-        for(Nurse n:nurseArrayList){
-            output+="\n"+n.getNurseId();
-        }
-        Toast.makeText(this, output, Toast.LENGTH_SHORT).show();
+        nurseViewModel.insert(nurse);
+//        String output="";
+//        for(Nurse n:nurseArrayList){
+//            output+="\n"+n.getNurseId();
+//        }
+//        Toast.makeText(this, output, Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(LogInActivity.this, SelectionActivity.class));
     }
 }
