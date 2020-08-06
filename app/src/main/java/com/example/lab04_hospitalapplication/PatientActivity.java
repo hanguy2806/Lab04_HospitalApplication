@@ -60,6 +60,12 @@ public class PatientActivity extends AppCompatActivity {
                 data.putExtra(AddPatientActivity.EXTRA_ROOM, patient.getRoom());
                 data.putExtra(AddPatientActivity.EXTRA_NURSEID, patient.getNurseId());
                 startActivityForResult(data, EDIT_PATIENT_REQUEST);
+                //add for storing patient id
+                SharedPreferences sh=getSharedPreferences("shared preferences", MODE_PRIVATE);
+                SharedPreferences.Editor editor=sh.edit();
+                editor.putString("patient_id",String.valueOf(patient.getPatientId()));
+                editor.commit();
+                //finish adding
 
             }
         });

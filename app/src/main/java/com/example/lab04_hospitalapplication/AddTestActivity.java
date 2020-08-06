@@ -55,10 +55,7 @@ public class AddTestActivity extends AppCompatActivity {
         String bpl = editTextBPL.getText().toString();
         String temperature = editTextTemperature.getText().toString();
 
-//        SharedPreferences sh=getSharedPreferences("shared preferences", MODE_PRIVATE);
-//        String nurse_id=sh.getString("nurse_id","no one");
-//        int patient_id=Integer.valueOf(sh.getString("patient_id","-1"));
-//
+
 //        Test test=new Test(Integer.valueOf(bpl),Integer.valueOf(bph),Integer.valueOf(temperature));
 //       test.setPatientId(patient_id);
 //        test.setNurseId(nurse_id);

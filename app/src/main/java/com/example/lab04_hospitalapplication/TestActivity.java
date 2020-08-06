@@ -64,7 +64,15 @@ public class TestActivity extends AppCompatActivity {
             String temperature = data.getStringExtra(AddTestActivity.EXTRA_TEMPERATURE);
             Test test=new Test(Integer.valueOf(bpl),Integer.valueOf(bph),Integer.valueOf(temperature));
 
+            SharedPreferences sh=getSharedPreferences("shared preferences", MODE_PRIVATE);
+            String nurse_id=sh.getString("nurse_id","no one");
+
+           int patient_id=Integer.valueOf(sh.getString("patient_id","-1"));
+
+
             testViewModel.insert(test);
+            test.setNurseId(nurse_id);
+            test.setPatientId(patient_id);
             Toast.makeText(this, "Patient info saved", Toast.LENGTH_SHORT).show();
         }
     }
