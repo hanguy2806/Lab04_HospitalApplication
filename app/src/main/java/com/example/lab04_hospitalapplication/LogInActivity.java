@@ -24,14 +24,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogInActivity extends AppCompatActivity {
-    ArrayList<Nurse> nurseArrayList;
+    ArrayList<Nurse> nurseArrayList=new ArrayList<>();
+    NurseViewModel nurseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        loadData();
+
+        nurseViewModel=ViewModelProviders.of(this).get(NurseViewModel.class);
+
+     loadData();
 
         Button loginBtn = findViewById(R.id.button_login);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +53,7 @@ public class LogInActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(nurseArrayList);
+
         editor.putString("nurse list", json);
         editor.apply();
     }
@@ -60,6 +65,10 @@ public class LogInActivity extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<Nurse>>() {
         }.getType();
         nurseArrayList = gson.fromJson(json, type);
+        if(nurseArrayList==null){
+            nurseArrayList=new ArrayList<>();
+        }
+        Toast.makeText(this, "Load data test", Toast.LENGTH_SHORT).show();
     }
 
     private void addNurse() {
@@ -71,8 +80,10 @@ public class LogInActivity extends AppCompatActivity {
         editor.putString("nurse_id",nurse_name.getText().toString());
         editor.commit();
 
+
         Nurse nurse = new Nurse(nurse_name.getText().toString(), password.getText().toString());
         nurseArrayList.add(nurse);
+       nurseViewModel.insert(nurse);
         String output="";
         for(Nurse n:nurseArrayList){
             output+="\n"+n.getNurseId();
