@@ -58,8 +58,8 @@ public class PatientActivity extends AppCompatActivity {
                 data.putExtra(AddPatientActivity.EXTRA_LNAME, patient.getLastName());
                 data.putExtra(AddPatientActivity.EXTRA_DEPARTMENT, patient.getDepartment());
                 data.putExtra(AddPatientActivity.EXTRA_ROOM, patient.getRoom());
+                data.putExtra(AddPatientActivity.EXTRA_NURSEID, patient.getNurseId());
                 startActivityForResult(data, EDIT_PATIENT_REQUEST);
-             //   startActivity(data);
             }
         });
     }
@@ -72,8 +72,10 @@ public class PatientActivity extends AppCompatActivity {
             String lastName = data.getStringExtra(AddPatientActivity.EXTRA_LNAME);
             String department = data.getStringExtra(AddPatientActivity.EXTRA_DEPARTMENT);
             int room = data.getIntExtra(AddPatientActivity.EXTRA_ROOM, 1);
+            String nurseId=data.getStringExtra(AddPatientActivity.EXTRA_NURSEID);
 
             Patient p = new Patient(firstName, lastName, department, room);
+            p.setNurseId(nurseId);
             patientViewModel.insert(p);
             Toast.makeText(this, "Patient info saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_PATIENT_REQUEST && resultCode == RESULT_OK) {
@@ -86,7 +88,9 @@ public class PatientActivity extends AppCompatActivity {
             String lastName = data.getStringExtra(AddPatientActivity.EXTRA_LNAME);
             String department = data.getStringExtra(AddPatientActivity.EXTRA_DEPARTMENT);
             int room = data.getIntExtra(AddPatientActivity.EXTRA_ROOM, 1);
+            String nurseId=data.getStringExtra(AddPatientActivity.EXTRA_NURSEID);
             Patient p = new Patient(firstName, lastName, department, room);
+            // p.setNurseId(nurseId);
             p.setPatientId(id);
             patientViewModel.update(p);
             Toast.makeText(this, "Patient info updated", Toast.LENGTH_SHORT).show();
@@ -113,22 +117,4 @@ public class PatientActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-//    public void intentHandler(){
-//        Intent data=getIntent();
-//        String firstName = data.getStringExtra(AddPatientActivity.EXTRA_FIRST_NAME);
-//        String lastName = data.getStringExtra(AddPatientActivity.EXTRA_LAST_NAME);
-//        String department = data.getStringExtra(AddPatientActivity.EXTRA_DEPARTMENT);
-//        int room = data.getIntExtra(AddPatientActivity.EXTRA_ROOM, 1);
-//
-//        Patient p = new Patient(firstName, lastName, department, room);
-//        patientViewModel.insert(p);
-//        Toast.makeText(this, "Patient's info saved", Toast.LENGTH_SHORT).show();
-//        }
-
-//    @Override
-//    public void onPatientClicked(int position) {
-//        patients.get(position);
-//        Intent intent=new Intent(this,PatientDetailActivity.class);
-//        startActivity(intent);
-//    }
 }
