@@ -24,82 +24,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogInActivity extends AppCompatActivity {
-    private NurseViewModel nurseViewModel;
+    ArrayList<Nurse> nurseArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        nurseViewModel = ViewModelProviders.of(this).get(NurseViewModel.class);
-
-        nurseViewModel.getInsertResult().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer result) {
-                if (result == 1) {
-                    Toast.makeText(LogInActivity.this, "log in success. Save user", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LogInActivity.this, "log in failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        nurseViewModel.getAllNurses().observe(this, new Observer<List<Nurse>>() {
-            @Override
-            public void onChanged(List<Nurse> nurses) {
-                String output = "Welcome ";
-                for (Nurse n : nurses) {
-                    output += n.getNurseId() + "\n";
-                }
-                Toast.makeText(LogInActivity.this, output, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // loadData();
+        loadData();
 
         Button loginBtn = findViewById(R.id.button_login);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNurse();
+                login();
                 startActivity(new Intent(LogInActivity.this, SelectionActivity.class));
-                //    login();
             }
         });
     }
 
     private void login() {
-        addNurse();
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(nurseViewModel);
+        String json = gson.toJson(nurseArrayList);
         editor.putString("nurse list", json);
         editor.apply();
-        Log.v("LOG IN METHOD", "here");
-        Toast.makeText(this, "HERE" + nurseViewModel.getAllNurses().toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("nurse list", null);
-        Type type = new TypeToken<NurseViewModel>() {
+        Type type = new TypeToken<ArrayList<Nurse>>() {
         }.getType();
-        nurseViewModel = gson.fromJson(json, type);
-
-        Toast.makeText(this, "DATA LOADING...", Toast.LENGTH_SHORT).show();
-
-        //   nurseViewModel.getAllNurses();
+        nurseArrayList = gson.fromJson(json, type);
     }
 
     private void addNurse() {
+        SharedPreferences sharedPreferences=getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
         EditText nurse_name = findViewById(R.id.text_nurse_name);
         EditText password = findViewById(R.id.text_password);
-        Nurse nurse = new Nurse(nurse_name.getText().toString(), password.getText().toString());
-//add nurse into nurseViewModel
-        nurseViewModel.insert(nurse);
-        Toast.makeText(this, "HERE" + nurseViewModel.getAllNurses().toString(), Toast.LENGTH_SHORT).show();
 
+        editor.putString("nurse_id",nurse_name.getText().toString());
+        editor.commit();
+
+        Nurse nurse = new Nurse(nurse_name.getText().toString(), password.getText().toString());
+        nurseArrayList.add(nurse);
+        String output="";
+        for(Nurse n:nurseArrayList){
+            output+="\n"+n.getNurseId();
+        }
+        Toast.makeText(this, output, Toast.LENGTH_SHORT).show();
     }
 }
